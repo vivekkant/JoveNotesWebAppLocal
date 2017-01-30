@@ -14,7 +14,7 @@ function RowData( rowType, name, rowId, parentRowId ) {
     this.isHidden    = true ;
     this.children    = [] ;
 
-    this.isNotesAuthorized      = false ;
+    this.isNotesAuthorized      = (rowType == this.ROW_TYPE_CHAPTER) ;
     this.isFlashcardAuthorized  = false ;
     this.isStatisticsAuthorized = false ;
     this.isDeleteAuthorized     = false ;
@@ -124,7 +124,6 @@ function RowData( rowType, name, rowId, parentRowId ) {
         this.masteredCards       = chapter.masteredCards ;
         this.numSSRMaturedCards  = chapter.numSSRMaturedCards ;
 
-        this.isNotesAuthorized      = chapter.isNotesAuthorized ;
         this.isFlashcardAuthorized  = chapter.isFlashcardAuthorized ;
         this.isStatisticsAuthorized = chapter.isStatisticsAuthorized ;
         this.isDeleteAuthorized     = chapter.isDeleteAuthorized ;
@@ -374,7 +373,7 @@ function removeChapter( chapterId ) {
 
 function refreshData() {
 
-    $http.get( "/jove_notes/api/ProgressSnapshot" )
+    $http.get( "/json/dashboard.json" )
          .success( function( data ){
             digestPreferences( data.preferences ) ;
             $scope.progressSnapshot = prepareDataForDisplay( data.dashboardContent ) ;

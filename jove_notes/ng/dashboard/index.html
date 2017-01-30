@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html ng-app="dashboardApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Local Preview Dashboard</title>
+
+    <link rel='stylesheet' href='/lib-ext/fonts/Open_Sans/opensans.css'>
+    <link rel="stylesheet" href="/lib-ext/bootstrap-3.3.4/css/bootstrap.css">
+
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon" type="image/ico"
+          href="/apps/_common/media/images/favicon.ico">
+
+    <link rel="stylesheet" href="/lib-app/style/app_fw_main.css">
+    <link rel="stylesheet" href="/apps/_common/style/main.css">
+    <link rel="stylesheet" href="/apps/jove_notes/style/main.css">
+
+    <script src="/lib-ext/log4javascript/log4javascript.js"></script>
+
+    <script src="/lib-ext/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/lib-ext/jquery/jquery.cookie.js"></script>
+
+    <script src="/lib-ext/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    
+    <script src="/lib-ext/angular/angular.min.js"></script>
+    <script src="/lib-ext/angular/angular-route.min.js"></script>
+    <script src="/lib-ext/angular/angular-sanitize.min.js"></script>
+    <script src="/lib-ext/bootstrap-3.3.4/angular/ui-bootstrap-tpls-0.14.2.min.js"></script>
+    <script src="/lib-ext/dombuilder/DOMBuilder.min.js"></script>
+
+    <script src="/apps/_common/scripts/common_utils.js"></script>
+
+    <script type="text/javascript">
+        var log      = log4javascript.getLogger( "main" ) ;
+        var appender = new log4javascript.BrowserConsoleAppender() ;
+        var layout   = new log4javascript.PatternLayout( "[%-5p] %m" ) ;
+
+        appender.setLayout( layout ) ;
+        appender.setThreshold( log4javascript.Level.DEBUG ) ;
+
+        log.addAppender( appender ) ;
+    </script>
+
+    <script type="text/javascript">
+    $( '[data-toggle="tooltip"]' ).tooltip( {
+        placement : 'top'
+    } ) ;
+    </script>
+
+    <script>
+        DOMBuilder.apply( window, 'dom' ) ;
+    </script>
+
+    <link rel="stylesheet" href="/lib-ext/highlight/styles/railscasts.css">
+    <script src="/lib-ext/highlight/highlight.pack.js"></script>
+
+
+    <link rel="stylesheet" href="/lib-ext/jquery/css/jquery.treegrid.css">
+    <link rel="stylesheet" type="text/css" href="/lib-ext/treetable/jquery.treetable.css">
+    <link rel="stylesheet" type="text/css" href="/lib-ext/treetable/jquery.treetable.theme.css">
+
+    <script src="/lib-ext/angular/angular-ui-indeterminate.min.js"></script>
+
+    <script src="/lib-ext/jquery/jquery.treegrid.js"></script>
+    <script src="/lib-ext/jquery/jquery.treegrid.bootstrap3.js"></script>
+    <script src="/lib-ext/treetable/jquery.treetable.js"></script>
+    <script src="/lib-ext/bootbox/bootbox.min.js"></script>
+
+    <script src="/lib-ext/rgraph/RGraph.common.core.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.common.key.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.common.dynamic.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.common.effects.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.common.tooltips.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.drawing.yaxis.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.line.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.pie.js"></script>    
+    <script src="/lib-ext/rgraph/RGraph.bar.js"></script>    
+
+    <script src="/lib-ext/moment/moment.min.js"></script> 
+    <script src="/lib-ext/daterangepicker/daterangepicker.js"></script> 
+    <link rel="stylesheet" href="/lib-ext/daterangepicker/daterangepicker-bs3.css">
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ 
+            TeX: { extensions: ["mhchem.js"] },
+            displayAlign: "left"
+        });
+    </script>
+    <script src="/lib-ext/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="/lib-ext/math/math.min.js"></script>    
+
+    <script src="/lib-app/js/simple_pivot/simple_pivot.js"></script> 
+    <script src="/apps/jove_notes/ng/_common/jove_notes_utils.js"></script>    
+    <script src="/apps/jove_notes/ng/_common/question_utils.js"></script>    
+    <script src="/apps/jove_notes/ng/_common/script_utilities.js"></script>    
+    <script src="/apps/jove_notes/ng/notes/ne_formatter.js"></script>    
+
+    <script src="/apps/jove_notes/ng/dashboard/routes.js"></script>    
+    <script src="/apps/jove_notes/ng/dashboard/controllers.js"></script>    
+    <script src="/apps/jove_notes/ng/dashboard/directives.js"></script>   
+
+    <script src="/apps/jove_notes/ng/dashboard/progress_snapshot/controllers.js"></script>    
+    <script src="/apps/jove_notes/ng/dashboard/reports/controllers.js"></script>    
+    <script src="/apps/jove_notes/ng/dashboard/pivots/controllers.js"></script>    
+    <script src="/apps/jove_notes/ng/dashboard/chapter_progress_snapshot/controllers.js"></script>    
+    <script src="/apps/jove_notes/ng/dashboard/notes_review/controllers.js"></script>    
+    <script src="/apps/jove_notes/ng/dashboard/test_papers/controllers.js"></script>    
+
+    <script>
+      var currentUserName = "Author" ;
+    </script>
+</head>
+<body ng-controller="DashboardController">
+    <div class="row" style="margin-right:0px;">
+	  <div class="col-sm-12 nav_element">
+		  <img src="/apps/jove_notes/media/images/logo_for_navbar.png" 
+			   style="height: 30px"/>
+		  &nbsp;&nbsp;&nbsp;
+		  <b>{{pageTitle}}</b>
+	  </div>
+	</div>
+    <div style="position:fixed; top:0; right:0; left:0;z-index:100;">
+	  <alert ng-repeat="alert in alerts" type="{{alert.type}}" 
+			 close="closeAlert($index)">
+	  {{alert.msg}}
+	  </alert>
+	</div>
+    <div style="height:2px"></div>
+  	<div class="ng-view"></div>	
+</body>
+</html>

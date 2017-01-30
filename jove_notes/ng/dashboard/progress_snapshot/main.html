@@ -3,46 +3,9 @@
         <thead>
             <tr>
                 <th>Chapter
-                    <button type="button" class="btn btn-default btn-xs"
-                            ng-click="expandAll()">
-                        <span class="glyphicon glyphicon-resize-full"></span>
-                    </button>
-                    <button type="button" class="btn btn-default btn-xs"
-                            ng-click="collapseAll()">
-                        <span class="glyphicon glyphicon-resize-small"></span>
-                    </button>
-                    <button type="button" class="btn btn-default btn-xs"
-                            ng-click="refreshData()">
-                        <span class="glyphicon glyphicon-refresh"></span>
-                    </button>
-                    <button type="button" class="btn btn-default btn-xs"
-                            ng-click="toggleHiddenChapters()">
-                        <span class="glyphicon glyphicon-eye-open"  ng-hide="showHiddenChapters"></span>
-                        <span class="glyphicon glyphicon-eye-close" ng-show="showHiddenChapters"></span>
-                    </button>
                 </th>
-                <th style="width:50px;text-align:center;">
-                   <span class="glyphicon glyphicon-th"></span>
-                </th>
-                <th style="width:50px">
-                    <div ng-include="'/apps/jove_notes/ng/dashboard/progress_snapshot/bulk_action_menu.html'">
-                    </div>
-                </th>
-                <th class="text-center">Meter</th>
-                <th></th>
                 <th>
-                    <table class="dashboard-stats">
-                        <tr>
-                            <td class="text-right TOT">T  </td>
-                            <td class="text-right NS" >NS </td>
-                            <td class="text-right L0" >L0 </td>
-                            <td class="text-right L1" >L1 </td>
-                            <td class="text-right L2" >L2 </td>
-                            <td class="text-right L3" >L3 </td>
-                            <td class="text-right MAS">MAS</td>
-                        </tr>
-                    </table>
-                </th>
+                   <th>Total </th>
                 <th></th>
             </tr>   
         </thead>    
@@ -53,50 +16,16 @@
                 on-render-complete> 
                 <td> 
                     <span ng-show="rowData.isNotesAuthorized">
-                    <a href="/apps/jove_notes/ng/notes/index.php?chapterId={{rowData.chapterId}}">
+                    <a href="/apps/jove_notes/ng/notes/index.html?chapterId={{rowData.chapterId}}">
                     {{rowData.name}}
                     </a>
                     </span>
                     <span ng-show="!rowData.isNotesAuthorized">{{rowData.name}}</span>
                 </td>
                 <td>
-                    <a type="button" class="btn btn-default btn-xs" 
-                       href="/apps/jove_notes/ng/flashcard/index.php?chapterId={{rowData.chapterId}}"
-                       ng-show="rowData.isFlashcardAuthorized"
-                       style="width:50px;text-align:right;">
-                       <span class="badge L3">{{rowData.numSSRMaturedCards}}</span>
-                    </a>
+                    &nbsp;
                 </td>
-                <td style="width:50px" align="center">
-                    <input id="push" type="checkbox" ng-change="rowData.selectionChanged()" 
-                           ng-model="rowData.isRowSelected"
-                           ui-indeterminate="rowData.isPartiallySelected" />
-                </td>
-                <td class="text-center">
-                    <canvas width='200' height='20' id='canvas-{{rowData.rowId}}'>
-                    </canvas>
-                </td>
-                <td>
-                    <a type="button" class="btn btn-default btn-xs"
-                       ng-show="rowData.rowType == 2"
-                       ng-click="rowData.toggleVisibility()">
-                        <span class="glyphicon glyphicon-eye-close" style="color:red"   ng-hide="rowData.isHidden"></span>
-                        <span class="glyphicon glyphicon-eye-open"  style="color:green" ng-show="rowData.isHidden"></span>
-                    </a>
-                </td>
-                <td>
-                    <table class="dashboard-stats">
-                        <tr>
-                            <td class="text-right TOT">{{rowData.totalCards      }}</td>
-                            <td class="text-right NS" >{{rowData.notStartedCards }}</td>
-                            <td class="text-right L0" >{{rowData.l0Cards         }}</td>
-                            <td class="text-right L1" >{{rowData.l1Cards         }}</td>
-                            <td class="text-right L2" >{{rowData.l2Cards         }}</td>
-                            <td class="text-right L3" >{{rowData.l3Cards         }}</td>
-                            <td class="text-right MAS">{{rowData.masteredCards   }}</td>
-                            </tr>
-                    </table>
-                </td>
+                <td>{{rowData.totalCards}}</td>
                 <td>
                     <a type="button" class="btn btn-default btn-xs"
                        ng-show="rowData.isDeleteAuthorized"

@@ -125,7 +125,7 @@ $scope.playSoundClip = function( clipName ) {
 function refreshData() {
 
 	log.debug( "Requesting notes data from server." ) ;
-	$http.get( "/jove_notes/api/ChapterNotes/" + chapterId + "?elementType=all" )
+	$http.get( "/json/chapter/" + chapterId + ".json" )
          .success( function( data ){
          	log.debug( "Data received from server." ) ;
          	processServerData( data ) ;

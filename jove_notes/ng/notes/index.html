@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title><?php echo $pageConfig[ "tab_title" ]; ?></title>
+
+    <link rel='stylesheet' href='/lib-ext/fonts/Open_Sans/opensans.css'>
+    <link rel="stylesheet" href="/lib-ext/bootstrap-3.3.4/css/bootstrap.css">
+
+    <head profile="http://www.w3.org/2005/10/profile">
+    <link rel="icon" type="image/ico"
+          href="/apps/_common/media/images/favicon.ico">
+
+    <link rel="stylesheet" href="/lib-app/style/app_fw_main.css">
+    <link rel="stylesheet" href="/apps/_common/style/main.css">
+    <link rel="stylesheet" href="/apps/jove_notes/style/main.css">
+
+    <script src="/lib-ext/log4javascript/log4javascript.js"></script>
+
+    <script src="/lib-ext/jquery/jquery-2.1.1.min.js"></script>
+    <script src="/lib-ext/jquery/jquery.cookie.js"></script>
+
+    <script src="/lib-ext/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+    
+    <script src="/lib-ext/angular/angular.min.js"></script>
+    <script src="/lib-ext/angular/angular-route.min.js"></script>
+    <script src="/lib-ext/angular/angular-sanitize.min.js"></script>
+    <script src="/lib-ext/bootstrap-3.3.4/angular/ui-bootstrap-tpls-0.14.2.min.js"></script>
+    <script src="/lib-ext/dombuilder/DOMBuilder.min.js"></script>
+
+    <script src="/apps/_common/scripts/common_utils.js"></script>
+
+    <script type="text/javascript">
+        var log      = log4javascript.getLogger( "main" ) ;
+        var appender = new log4javascript.BrowserConsoleAppender() ;
+        var layout   = new log4javascript.PatternLayout( "[%-5p] %m" ) ;
+
+        appender.setLayout( layout ) ;
+        appender.setThreshold( log4javascript.Level.DEBUG ) ;
+
+        log.addAppender( appender ) ;
+    </script>
+	
+	<script type="text/javascript">
+		function getUrlParameter(sParam) {
+			var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+				sURLVariables = sPageURL.split('&'),
+				sParameterName,
+				i;
+
+			for (i = 0; i < sURLVariables.length; i++) {
+				sParameterName = sURLVariables[i].split('=');
+
+				if (sParameterName[0] === sParam) {
+					return sParameterName[1] === undefined ? true : sParameterName[1];
+				}
+			}
+		};
+	</script>
+
+    <script type="text/javascript">
+    $( '[data-toggle="tooltip"]' ).tooltip( {
+        placement : 'top'
+    } ) ;
+    </script>
+
+    <script>
+        DOMBuilder.apply( window, 'dom' ) ;
+    </script>
+
+    <link rel="stylesheet" href="/lib-ext/highlight/styles/github.css">
+    <script src="/lib-ext/highlight/highlight.pack.js"></script>
+    <link rel='stylesheet' href='/lib-ext/pure/tables.css'>
+    <link rel='stylesheet' href='/apps/jove_notes/ng/flashcard/flashcard.css'>
+
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ 
+            TeX: { extensions: ["mhchem.js"] },
+            displayAlign: "left"
+        });
+    </script>
+    <script src="/lib-ext/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="/lib-ext/math/math.min.js"></script>    
+
+    <script src="/apps/jove_notes/ng/_common/jove_notes_utils.js"></script>    
+    <script src="/apps/jove_notes/ng/_common/question_utils.js"></script>    
+    <script src="/apps/jove_notes/ng/_common/script_utilities.js"></script>    
+
+    <script src="/apps/jove_notes/ng/flashcard/practice_page/dynq_imglabel.js"></script>    
+
+    <script src="/apps/jove_notes/ng/notes/ne_formatter.js"></script>    
+
+    <script src="/apps/jove_notes/ng/notes/routes.js"></script>    
+    <script src="/apps/jove_notes/ng/notes/directives.js"></script>    
+    <script src="/apps/jove_notes/ng/notes/controllers.js"></script>    
+
+    <script>
+    var userName = 'Author' ;
+    var chapterId = getUrlParameter("chapterId");
+    </script>
+</head>
+
+<body ng-controller="NotesController" onload="MathJax.Hub.Queue( ['Typeset', MathJax.Hub] )">
+
+	<a name="top"></a>
+
+	<div class="container-fluid">
+	  <div class="row">
+		<div class="col-sm-8 nav_element">
+			<img src="/apps/jove_notes/media/images/logo_for_navbar.png" 
+				 style="height: 30px"/>
+			&nbsp;&nbsp;&nbsp;
+			<b>{{pageTitle}}</b>
+		</div>
+		<div class="col-sm-4 nav_element">
+			<span class="small">
+			Author
+			</span>
+			<div class="pull-right" style="margin-top: 3px">
+				<a target="_blank" href="/apps/jove_notes/ng/notes/practice.php?chapterId={{chapterId}}">
+					<span class="glyphicon glyphicon-edit gi-1-5x"></span>
+				</a>
+				&nbsp;
+				<a target="_blank" href="/apps/jove_notes/ng/notes/print.php?chapterId={{chapterId}}">
+					<span class="glyphicon glyphicon-print gi-1-5x"></span>
+				</a>
+				&nbsp;
+				<a ng-click="toggleFilterForm()">
+					<span class="glyphicon glyphicon-filter gi-1-5x"></span>
+				</a>
+				&nbsp;
+				<a ng-click="toggleUserStatistics()">
+					<span class="glyphicon glyphicon-screenshot gi-1-5x"></span>
+				</a>
+				&nbsp;
+				<a href="/apps/jove_notes/ng/dashboard/index.php">
+					<span class="glyphicon glyphicon-eye-open gi-1-5x"></span>
+				</a>
+			</div>
+		</div>
+	  </div>
+	</div>
+
+	<div class="floating_notes_menu">
+		<a ng-click="scrollTo('top')">
+			<span class="glyphicon glyphicon-arrow-up gi-2x"></span>
+		</a>
+		<p>
+		<a ng-click="toggleUserStatistics()">
+			<span class="glyphicon glyphicon-screenshot gi-2x"></span>
+		</a>
+		<p>
+		<a href="/apps/jove_notes/ng/dashboard/index.php">
+			<span class="glyphicon glyphicon-eye-open gi-2x"></span>
+		</a>
+		<p>
+		<a ng-click="scrollTo('bottom')">
+			<span class="glyphicon glyphicon-arrow-down gi-2x"></span>
+		</a>
+	</div>
+    <audio id="audio"></audio>
+
+    <div ng-show="showFilterForm" ng-include="'/apps/jove_notes/ng/notes/html_fragments/filter_template.html'">
+    </div>
+    <p>
+    <div ng-if="teacherNotes.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/teacher_note_template.html'"></div>
+    </div>
+
+    <div ng-if="wordMeanings.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/wm_template.html'"></div>
+    </div>
+
+    <div ng-if="spellbeeWords.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/spellbee_template.html'"></div>
+    </div>
+
+    <div ng-if="voice2TextQuestions.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/voice2text_template.html'"></div>
+    </div>
+
+    <div ng-if="chemCompounds.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/chem_compound_template.html'"></div>
+    </div>
+
+    <div ng-if="equations.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/equation_template.html'"></div>
+    </div>
+
+    <div ng-if="definitions.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/definition_template.html'"></div>
+    </div>
+
+    <div ng-if="fibs.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/fib_template.html'"></div>
+    </div>
+
+    <div ng-if="trueFalseStatements.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/true_false_template.html'"></div>
+    </div>
+
+    <div ng-if="characters.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/character_template.html'"></div>
+    </div>
+
+    <div ng-if="matchings.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/matching_template.html'"></div>
+    </div>
+
+    <div ng-if="events.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/event_template.html'"></div>
+    </div>
+
+    <div ng-if="imageLabels.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/image_label_template.html'"></div>
+    </div>
+
+    <div ng-if="questionAnswers.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/qa_template.html'"></div>
+    </div>
+
+    <div ng-if="multiChoiceQuestions.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/mc_template.html'"></div>
+    </div>
+
+    <div ng-if="referenceToContexts.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/rtc_template.html'"></div>
+    </div>
+
+    <div ng-if="chemEquations.length">
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/chem_equation_template.html'"></div>
+    </div>
+
+    <a name="bottom"></a>
+</body>
+
+</html>
