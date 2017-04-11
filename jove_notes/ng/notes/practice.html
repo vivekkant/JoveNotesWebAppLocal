@@ -107,7 +107,7 @@
 <body ng-controller="NotesController" onload="MathJax.Hub.Queue( ['Typeset', MathJax.Hub] )">
 
     <div style="background:black;color:white;">
-        <img src="<?php echo APP_LOGO_PATH ?>" 
+        <img src="/apps/jove_notes/media/images/logo_for_navbar.png" 
              style="height: 30px"/>
         &nbsp;&nbsp;&nbsp;
         <b style="font-size:20px">{{pageTitle}}</b>
@@ -155,7 +155,7 @@
     </div>
 
     <div ng-if="questionAnswers.length">
-        <div ng-include="/apps/jove_notes/ng/notes/html_fragments_practice/qa_template.html"></div>
+        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments_practice/qa_template.html'"></div>
     </div>
 
     <div ng-if="multiChoiceQuestions.length">
