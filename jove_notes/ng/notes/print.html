@@ -83,7 +83,7 @@
             displayAlign: "left"
         });
     </script>
-    <script src="/lib-ext/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="/lib-ext/MathJax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="/lib-ext/math/math.min.js"></script>    
 
     <script src="/apps/jove_notes/ng/_common/jove_notes_utils.js"></script>    
@@ -116,31 +116,11 @@
 			&nbsp;&nbsp;&nbsp;
 			<b>{{pageTitle}}</b>
 		</div>
-		<div class="col-sm-4 nav_element">
-			<span class="small">
-			&nbsp;
-			</span>
-			<div class="pull-right" style="margin-top: 3px">
-				<a target="_blank" href="/apps/jove_notes/ng/notes/practice.html?chapterId={{chapterId}}">
-					<span class="glyphicon glyphicon-edit gi-1-5x"></span>
-				</a>
-                &nbsp;
-                <a target="_blank" href="/apps/jove_notes/ng/notes/print.html?chapterId={{chapterId}}">
-                    <span class="glyphicon glyphicon-print gi-1-5x"></span>
-                </a>
-                &nbsp;
-                <a href="/apps/jove_notes/ng/dashboard/index.html">
-                    <span class="glyphicon glyphicon-eye-open gi-1-5x"></span>
-                </a>
-			</div>
-		</div>
 	  </div>
 	</div>
 
     <audio id="audio"></audio>
 
-    <div ng-show="showFilterForm" ng-include="'/apps/jove_notes/ng/notes/html_fragments/filter_template.html'">
-    </div>
     <p>
     <div ng-if="teacherNotes.length">
         <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/teacher_note_template.html'"></div>
@@ -152,10 +132,6 @@
 
     <div ng-if="spellbeeWords.length">
         <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/spellbee_template.html'"></div>
-    </div>
-
-    <div ng-if="voice2TextQuestions.length">
-        <div ng-include="'/apps/jove_notes/ng/notes/html_fragments/voice2text_template.html'"></div>
     </div>
 
     <div ng-if="chemCompounds.length">
